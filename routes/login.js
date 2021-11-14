@@ -3,7 +3,7 @@ var router = express.Router();
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const functionAutho = require("../public/javascripts/CheckAutho");
-var login = require("../public/db/schema/User_Schema");
+var login = require("../public/db/Schema/User_Schema");
 let user;
 router.get(
   "/CheckLogin",
