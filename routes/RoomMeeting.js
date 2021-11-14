@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var RoomMeeting = require("../public/db/Schema/MeetingRoom_Schema")
+var RoomMeeting = require("../public/db/schema/MeetingRoom_Schema")
 router.post('/CreateMeetingRoom'  , async (req, res) => {
     let request = req.body;
     let newMeeting = new RoomMeeting({
