@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const Attachments_Schema = require("../public/db/schema/Attachments_Schema");
+const Attachments_Schema = require("../public/db/Schema/Attachments_Schema");
 const upload = require("../public/db/functionForDB/upload")
 var PORT = process.env.PORT || "http://localhost:4000";
 // });

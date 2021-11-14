@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var User_Schema = require("../public/db/schema/User_Schema");
+var User_Schema = require("../public/db/Schema/User_Schema");
 const functionAutho = require("../public/javascripts/CheckAutho");
 /* GET users listing. */
 router.post("/",functionAutho.checkAuthentica , async (req, res) => {
