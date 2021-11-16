@@ -56,6 +56,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join_room", (data) => {
+    console.log(data);
+    console.log(users);
+
     socket.join(data.room_id);
     socket.idUser = data.ownerId;
     socket.room_id = data.room_id;
@@ -66,6 +69,8 @@ io.on("connection", (socket) => {
         idUser: data.ownerId,
         peerId: data.peerId,
       });
+    } else {
+      users[index].peerId = data.peerId
     }
 
     io.to(data.room_id).emit("SomeOneJoin", users);
@@ -84,7 +89,6 @@ io.on("connection", (socket) => {
   //   io.to(socket.room_id).emit("newMessages", message);
   // });
 
-
   socket.on("disconnect", async () => {
     // console.log("disconnect call");
     let index = await users.findIndex((user) => user.idUser === socket.idUser);
@@ -99,7 +103,9 @@ io.on("connection", (socket) => {
     ];
     let infoSomeOneDisconnect = socket.idUser;
     // console.log(infoSomeOneDisconnect);
-    io.to(socket.room_id).emit("someOneDisconnect", {idUserDisconnect: infoSomeOneDisconnect});
+    io.to(socket.room_id).emit("someOneDisconnect", {
+      idUserDisconnect: infoSomeOneDisconnect,
+    });
   });
 });
 
