@@ -84,11 +84,12 @@ io.on("connection", (socket) => {
   //   io.to(socket.room_id).emit("newMessages", message);
   // });
 
-  socket.on("disconnect", () => {
-    // console.log("disconnect call");
-    let index = users.findIndex((user) => user.idUser === socket.idUser);
 
-    users[
+  socket.on("disconnect", async () => {
+    // console.log("disconnect call");
+    let index = await users.findIndex((user) => user.idUser === socket.idUser);
+
+    await users[
       ({
         ...users.slice(0, index),
       },
@@ -97,7 +98,8 @@ io.on("connection", (socket) => {
       })
     ];
     let infoSomeOneDisconnect = socket.idUser;
-    io.to(socket.room_id).emit("someOneDisconnect", users);
+    // console.log(infoSomeOneDisconnect);
+    io.to(socket.room_id).emit("someOneDisconnect", {idUserDisconnect: infoSomeOneDisconnect});
   });
 });
 
