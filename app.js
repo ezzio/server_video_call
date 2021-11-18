@@ -56,9 +56,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join_room", (data) => {
-    console.log(data);
-    console.log(users);
-
     socket.join(data.room_id);
     socket.idUser = data.ownerId;
     socket.room_id = data.room_id;
@@ -70,7 +67,7 @@ io.on("connection", (socket) => {
         peerId: data.peerId,
       });
     } else {
-      users[index].peerId = data.peerId
+      users[index].peerId = data.peerId;
     }
 
     io.to(data.room_id).emit("SomeOneJoin", users);
