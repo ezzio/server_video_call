@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
+var mongoose = require("mongoose");
 // const login_github = require("./login_github");
 const connection = require("./public/db/configmongoose");
 const passport = require("passport");
@@ -14,6 +15,7 @@ const useRouter = require("./routes/usersInfo");
 const RoomMeetingRouter = require("./routes/RoomMeeting");
 const photoRouter = require("./routes/photo");
 const AttrachmentRouter = require("./routes/Attachments");
+// var User_Schema = require("./public/db/schema/User_Schema");
 const users = [];
 // view engine setup
 app.use(express.json());
@@ -46,22 +48,26 @@ app.use("/Attrachment", AttrachmentRouter);
 app.use("/photo", photoRouter);
 app.use("/MeetingRoom", RoomMeetingRouter);
 io.on("connection", (socket) => {
-  console.log("socket connection");
   socket.on("create_room", (data, UserRoom) => {
-    // console.log(data);
     socket.idUser = data.UserRoom;
     socket.room_id = data.RoomId;
     users.push({ Room: data.RoomId, Data: "Host", idUser: data.UserRoom });
     socket.join(data.RoomId);
   });
 
-  socket.on("join_room", (data) => {
+  socket.on("join_room", async (data) => {
+    // let UserJoinRoom = await mongoose.model.User.find({_id: data.ownerId}).lean().exec()
+    // console.log(UserJoinRoom);
+    // console.log(data.username);
+    console.log(users);
     socket.join(data.room_id);
     socket.idUser = data.ownerId;
     socket.room_id = data.room_id;
+
     let index = users.findIndex((user) => user.idUser === socket.idUser);
     if (index == -1) {
       users.push({
+        username: data.username,
         RoomJoin: data.room_id,
         idUser: data.ownerId,
         peerId: data.peerId,
@@ -87,9 +93,7 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("disconnect", async () => {
-    // console.log("disconnect call");
     let index = await users.findIndex((user) => user.idUser === socket.idUser);
-
     await users[
       ({
         ...users.slice(0, index),
@@ -99,7 +103,7 @@ io.on("connection", (socket) => {
       })
     ];
     let infoSomeOneDisconnect = socket.idUser;
-    // console.log(infoSomeOneDisconnect);
+    console.log(infoSomeOneDisconnect);
     io.to(socket.room_id).emit("someOneDisconnect", {
       idUserDisconnect: infoSomeOneDisconnect,
     });

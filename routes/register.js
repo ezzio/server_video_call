@@ -3,7 +3,7 @@ var router = express.Router();
 const functionAutho = require("../public/javascripts/CheckAutho");
 var User_Schema = require("../public/db/Schema/User_Schema");
 /* GET home page. */
-router.get("/", functionAutho.checkNotAuthenticated, (req, res) => {
+router.get("/",(req, res) => {
   console.log("register");
 });
 
