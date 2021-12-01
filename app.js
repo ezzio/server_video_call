@@ -75,9 +75,9 @@ io.on("connection", (socket) => {
       users[index].peerId = data.peerId;
     }
     // console.log(users);
-    io.to(data.room_id).emit("SomeOneJoin", users);
+    socket.to(data.room_id).emit("SomeOneJoin", users);
 
-    io.to(data.room_id).emit("newUserJoin", {
+    socket.to(data.room_id).emit("newUserJoin", {
       RoomJoin: data.room_id,
       message: data.username + " Vừa Join vào room",
       userName: data.username,
