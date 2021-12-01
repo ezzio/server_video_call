@@ -15,8 +15,7 @@ const registerRouter = require("./routes/register");
 const useRouter = require("./routes/usersInfo");
 const RoomMeetingRouter = require("./routes/RoomMeeting");
 const photoRouter = require("./routes/photo");
-const AttrachmentRouter = require("./routes/Attachments");
-const findUser = require("./public/javascripts/findUser");
+
 let users = [];
 // view engine setup
 app.use(express.json());
@@ -45,7 +44,7 @@ app.use(passport.session());
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/user", useRouter);
-app.use("/Attrachment", AttrachmentRouter);
+
 app.use("/photo", photoRouter);
 app.use("/MeetingRoom", RoomMeetingRouter);
 io.on("connection", (socket) => {
@@ -80,13 +79,13 @@ io.on("connection", (socket) => {
 
     io.to(data.room_id).emit("newUserJoin", {
       RoomJoin: data.room_id,
-      message: data.userInfo + " Vừa Join vào room",
-      userName: data.userInfo,
+      message: data.username + " Vừa Join vào room",
+      userName: data.username,
       idUser: data.ownerId,
     });
   });
   socket.on("close_camera", (userClose) => {
-    // console.log("userClose");
+    console.log(userClose);
   });
 
   socket.on("disconnect", async () => {
@@ -103,7 +102,6 @@ io.on("connection", (socket) => {
       });
     }
   });
-
 });
 
 server.listen(PORT, () => console.log("server is running at port " + PORT));

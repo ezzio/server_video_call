@@ -6,9 +6,8 @@ const User = new Schema(
     password: { type: String, required: true },
     displayName: { type: String },
     avatar: { type: String},
-    githubToken: { type: String},
+    penddingRequest: {type: String},
     createAt: { type: Date, default: Date.now },
-    InfoAllProjectJoin : [{ type: Schema.Types.ObjectId, ref: "Project"}]
   },
   { collection: "User" }
 );

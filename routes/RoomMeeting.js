@@ -5,7 +5,7 @@ router.post("/CreateMeetingRoom", async (req, res) => {
   let request = req.body;
   let newMeeting = new RoomMeeting({
     RoomName: request.RoomName,
-    Owner: request.Owner,
+    owner: request.owner,
   });
   await newMeeting.save((err, modal) => {
     if (err) {
@@ -15,5 +15,21 @@ router.post("/CreateMeetingRoom", async (req, res) => {
     }
   });
 });
+router.post("/CheckMeetingRoom", async (req, res) => {
+  let request = req.body;
+  await RoomMeeting.find({ _id: request.RoomName }, (error) => {
+    if (error) {
+      res.send("Room is not exist");
+    } else {
+      res.send({ isSuccess: true });
+    }
+  });
+});
+
+router.post("/inviteToRoom", async (req, res) => {
+  let request = req.body;
+  
+  
+})
 
 module.exports = router;
