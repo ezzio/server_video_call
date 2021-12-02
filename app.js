@@ -85,7 +85,7 @@ io.on("connection", (socket) => {
     });
   });
   socket.on("close_camera", (userClose) => {
-    socket.to(userClose.currentRoom).emit('SomeOneCloseCamara' , userClose);
+    socket.to(userClose.currentRoom).emit("SomeOneCloseCamara", userClose);
   });
 
   socket.on("disconnect", async () => {
