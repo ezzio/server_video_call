@@ -8,7 +8,6 @@ module.exports = async function connection() {
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: true,
       }
     )
     .catch((err) => console.log(err));
