@@ -2,8 +2,7 @@ var express = require("express");
 var router = express.Router();
 var User_Schema = require("../public/db/Schema/User_Schema");
 const PORT = process.env.PORT || "http://localhost:4000"
-// const functionAutho = require("../public/javascripts/CheckAutho");
-var upload = require("../public/db/functionForDB/Upload");
+var upload = require("../public/db/functionForDB/upload");
 /* GET users listing. */
 router.post("/", async (req, res) => {
   let request = req.body;
