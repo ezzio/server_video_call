@@ -97,6 +97,7 @@ io.on("connection", (socket) => {
       const new_arr = a1.concat(a2);
       users = new_arr;
       io.to(socket.room_id).emit("someOneDisconnect", {
+        messages: infoSomeOneDisconnect.username + " vừa thoát khỏi phòng",
         idUserDisconnect: infoSomeOneDisconnect.idUser,
         usersCurrentInroom: users,
       });
