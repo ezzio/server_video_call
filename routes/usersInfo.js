@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
 router.post("/changeAvatar", upload.single("file"), async (req, res) => {
   let request = req.body;
   if (req.file === undefined) return res.send("you must select a file.");
-  const imgUrl = `${PORT}/photo/${req.file.filename}`;
+  const imgUrl = `https://servervideocall.herokuapp.com/photo/${req.file.filename}`;
   await User_Schema.updateOne(
     { _id: request.owners },
     { $set: { avatar: imgUrl } }, (error)=> {
