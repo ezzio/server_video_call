@@ -9,7 +9,7 @@ const connection = require("./public/db/configmongoose");
 const passport = require("passport");
 const session = require("cookie-session");
 const server = require("http").createServer(app);
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 const loginRouter = require("./routes/login");
 const registerRouter = require("./routes/register");
 const useRouter = require("./routes/usersInfo");
@@ -74,7 +74,11 @@ io.on("connection", (socket) => {
       users[index].socketId = socket.id;
       users[index].peerId = data.peerId;
     }
-    // console.log(users);
+    let infoAllMemberInRoom = users.filter(
+      (eachUser) => eachUser.RoomJoin === data.room_id
+    );
+    // console.log(users[index]);
+    socket.to(socket.id).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
     socket.to(data.room_id).emit("SomeOneJoin", users);
 
     socket.to(data.room_id).emit("newUserJoin", {
@@ -85,6 +89,8 @@ io.on("connection", (socket) => {
     });
   });
   socket.on("close_camera", (userClose) => {
+    console.log("vua dong camera")
+    console.log(userClose)
     socket.to(userClose.currentRoom).emit("SomeOneCloseCamara", userClose);
   });
 
