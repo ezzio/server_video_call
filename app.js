@@ -77,8 +77,10 @@ io.on("connection", (socket) => {
     let infoAllMemberInRoom = users.filter(
       (eachUser) => eachUser.RoomJoin === data.room_id
     );
-    // console.log(users[index]);
-    socket.to(socket.id).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
+    infoAllMemberInRoom.map((items) => {
+      io.to(items.socketId).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
+    });
+
     socket.to(data.room_id).emit("SomeOneJoin", users);
 
     socket.to(data.room_id).emit("newUserJoin", {
@@ -88,9 +90,10 @@ io.on("connection", (socket) => {
       idUser: data.ownerId,
     });
   });
+
   socket.on("close_camera", (userClose) => {
-    console.log("vua dong camera")
-    console.log(userClose)
+    console.log("vua dong camera");
+    console.log(userClose);
     socket.to(userClose.currentRoom).emit("SomeOneCloseCamara", userClose);
   });
 
