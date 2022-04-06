@@ -78,7 +78,7 @@ io.on("connection", (socket) => {
       (eachUser) => eachUser.RoomJoin === data.room_id
     );
     infoAllMemberInRoom.map((items) => {
-      socket.to(items.socketId).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
+      io.to(items.socketId).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
     });
 
     socket.to(data.room_id).emit("SomeOneJoin", users);
