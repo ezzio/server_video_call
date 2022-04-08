@@ -77,9 +77,13 @@ io.on("connection", (socket) => {
     let infoAllMemberInRoom = users.filter(
       (eachUser) => eachUser.RoomJoin === data.room_id
     );
-    infoAllMemberInRoom.map((items) => {
-      io.to(items.socketId).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
-    });
+    // infoAllMemberInRoom.map((items) => {
+    console.log(data.room_id);
+    io.to(data.room_id).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
+    // for (const item of infoAllMemberInRoom) {
+    //   console.log(item.socketId);
+
+    // }
 
     socket.to(data.room_id).emit("SomeOneJoin", users);
 
