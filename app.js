@@ -78,8 +78,8 @@ io.on("connection", (socket) => {
       (eachUser) => eachUser.RoomJoin === data.room_id
     );
     // infoAllMemberInRoom.map((items) => {
-    console.log(data.room_id);
-    io.to(data.room_id).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
+    console.log(infoAllMemberInRoom);
+    socket.to(data.room_id).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
     // for (const item of infoAllMemberInRoom) {
     //   console.log(item.socketId);
 
