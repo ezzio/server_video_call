@@ -85,7 +85,7 @@ io.on("connection", (socket) => {
 
     // }
 
-    // socket.to(data.room_id).emit("SomeOneJoin", users);
+    socket.to(data.room_id).emit("SomeOneJoin", users);
 
     socket.to(data.room_id).emit("newUserJoin", {
       RoomJoin: data.room_id,
