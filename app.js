@@ -78,19 +78,18 @@ io.on("connection", (socket) => {
       (eachUser) => eachUser.RoomJoin === data.room_id
     );
     // infoAllMemberInRoom.map((items) => {
-    console.log(infoAllMemberInRoom);
+    // console.log(infoAllMemberInRoom);
     socket.to(data.room_id).emit("totalInfoMemberInRoom", infoAllMemberInRoom);
     // for (const item of infoAllMemberInRoom) {
     //   console.log(item.socketId);
 
     // }
+    io.to(data.room_id).emit("SomeOneJoin", users);
 
-    socket.to(data.room_id).emit("SomeOneJoin", users);
-
-    socket.to(data.room_id).emit("newUserJoin", {
+    io.to(data.room_id).emit("newUserJoin", {
       RoomJoin: data.room_id,
-      message: data.username + " Vừa Join vào room",
-      userName: data.username,
+      message: data.userInfo + " Vừa Join vào room",
+      userName: data.userInfo,
       idUser: data.ownerId,
     });
   });
